@@ -1,4 +1,5 @@
 <?php
+//modificado
 
 include ('./GenerarCFDIV33_Clases.php');
 include ('./generar-parametros.php');
@@ -30,7 +31,7 @@ $servicio="https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
     // var_dump($parameters);
 
     $xmlstr = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
-    //
+
     echo "<pre>";var_dump($xmlstr);
   }
   catch (Exception $e) {

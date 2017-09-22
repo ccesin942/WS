@@ -255,10 +255,10 @@ class CFDIRequest{
      $this->Usuario          = 'ws@carsystem.mx';
      $this->Contrasena       = 'Ws5n6*cwq*1';
      $this->DatosCFDI        = '';//new DatosCFDI('Datos Adicionales','Mensaje Pdf','Email Mensaje');
-     $this->CFDIRelacion     = '';//new CFDISRelacionados('1','A39DA66B-52CA-49E3-879B-5C05185B0EF7');
-     $this->ReceptorCFDI     = '';//new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2');
-     $this->ConceptosCFD     = '';//new ConceptosCFDI();
-     $this->Addenda          = '';//'$Addenda';
+     $this->CFDIRelacion     = new CFDISRelacionados('1','A39DA66B-52CA-49E3-879B-5C05185B0EF7');
+     $this->ReceptorCFDI     = new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2');
+     $this->ConceptosCFD     = new ConceptosCFDI();
+     $this->Addenda          = '$Addenda';
   }
 }
 
