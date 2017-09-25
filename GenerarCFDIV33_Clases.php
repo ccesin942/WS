@@ -97,8 +97,7 @@ class ConceptoCFDI{
                        $Base_R,$Impuesto_R,$TipoFactor_R,$TasaOCuota_R,$Importe_R,                              /*Retenciones*/
                        $NumeroPedimento_ConceptoCFDI,                                                           /*InformacionAduana_ConceptoCFDI*/
                        $Numero,                                                                                 /*Predial*/
-                       $ClaveProdServ_Parte,$NoIdentificacion_Parte,$Cantidad_Parte,$Unidad_Parte,$Descripcion_Parte,$ValorUnitario_Parte,$Importe_Parte, /*Parte*/
-                            $NumeroPedimento_Parte/*InformacionAduana_Parte*/){
+                       $Data){                                                                                  /* ARRAY PARTE*/
 
                       $this->ClaveProdServ     = $ClaveProdServ;
                       $this->NoIdentificacion  = $NoIdentificacion;
@@ -113,7 +112,11 @@ class ConceptoCFDI{
                       $this->Retenciones       = new ImpuestoRetenido($Base_R,$Impuesto_R,$TipoFactor_R,$TasaOCuota_R,$Importe_R);
                       $this->InformacionAduana = new InformacionAduanera($NumeroPedimento_ConceptoCFDI);
                       $this->Predial           = new CuentaPredial($Numero);
-                      $this->Parte             = new Parte($ClaveProdServ_Parte,$NoIdentificacion_Parte,$Cantidad_Parte,$Unidad_Parte,$Descripcion_Parte,$ValorUnitario_Parte,$Importe_Parte,$NumeroPedimento_Parte);
+                      foreach ($Data as $value) {
+
+                          $this->Parte[] = new Parte($value[0],$value[1],$value[2],$value[3],$value[4],$value[5],$value[6],$value[7]);
+
+                      }
   }
 
 }
@@ -122,20 +125,30 @@ class ConceptosCFDI{
    public $Conceptos;
 
    function __construct(){
-     $this->Conceptos =  array(new ConceptoCFDI('01010101','00001',1.5,'F52','TONELADA','ACERO',1500000,2250000,'$Descuento',
-                                          2250000,'002','Tasa',0.160000,360000,                              /*Translado*/
-                                          2250000,'003','Tasa',0.530000,1192500,                              /*Retenciones*/
-                                          '$NumeroPedimento_ConceptoCFDI',                                                           /*InformacionAduana_ConceptoCFDI*/
-                                          51888,                                                                                 /*Predial*/
-                                          '01010101','055155',1.0,'UNIDAD','PARTE EJEMPLO',1.00,1.00, /*Parte*/
-                                              '15  48  3009  0002777'/*InformacionAduana_Parte*/),
-                                new ConceptoCFDI('01010101','00001',1.5,'F52','TONELADA','ACERO',1500000,2250000,'$Descuento',
-                                          2250000,'002','Tasa',0.160000,360000,                              /*Translado*/
-                                          2250000,'003','Tasa',0.530000,1192500,                              /*Retenciones*/
-                                          '$NumeroPedimento_ConceptoCFDI',                                                           /*InformacionAduana_ConceptoCFDI*/
-                                          51888,                                                                                 /*Predial*/
-                                          '01010101','055155',1.0,'UNIDAD','PARTE EJEMPLO',1.00,1.00, /*Parte*/
-                                             '15  48  3009  0002777'/*InformacionAduana_Parte*/)
+     $this->Conceptos =  array(new ConceptoCFDI('10101500','1',10.00,'MTR','Pza','Descrpicion de Prueba 1',1000.00,10000.00,'0.00',
+                                          100000.00,'002','Tasa2',0.160000,24000.00,                         /*Translado*/
+                                          100000.00,'002','Tasa' ,0.160000,24000.00,                         /*Retenciones*/
+                                          '$NumeroPedimento_ConceptoCFDI',                                   /*InformacionAduana_ConceptoCFDI*/
+                                          1,                                                                 /*Predial*/
+                                          array(array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 1',1000.00,10000.00, /*Parte*/
+                                                    'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/),
+                                                array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 2',1000.00,10000.00, /*Parte*/
+                                                    'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/)
+                                          )
+                               ),
+                               new ConceptoCFDI('10101500','1',10.00,'MTR','Pza','Descrpicion de Prueba 1',1000.00,10000.00,'0.00',
+                                        100000.00,'002','Tasa2',0.160000,24000.00,                         /*Translado*/
+                                        100000.00,'002','Tasa' ,0.160000,24000.00,                         /*Retenciones*/
+                                        '$NumeroPedimento_ConceptoCFDI',                                   /*InformacionAduana_ConceptoCFDI*/
+                                        1,                                                                 /*Predial*/
+                                        array(array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 1',1000.00,10000.00, /*Parte*/
+                                                        'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/),
+                                              array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 2',1000.00,10000.00, /*Parte*/
+                                                        'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/),
+                                              array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 3',1000.00,10000.00, /*Parte*/
+                                                        'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/)
+                                        )
+                               )
                          );
    }
 
@@ -143,18 +156,18 @@ class ConceptosCFDI{
 
 class ReceptorCFDITimbradoPlus {
    public $RFC;  //string
-   public $RazonSocial;  //string
-   public $ResidenciaFiscal; //string
+   public $Nombre;  //string
+   //public $ResidenciaFiscal; //string
    public $NumRegIdTrib; //string
    public $UsoCfdi;  //string
 
-  //  function __construct(){
-  //    $this->RFC              = '';
-  //    $this->RazonSocial      = '';
-  //    $this->ResidenciaFiscal = '';
-  //    $this->NumRegIdTrib     = '';
-  //    $this->UsoCfdi          = '';
-  //  }
+   function __construct($RFC,$Nombre,/*$ResidenciaFiscal,*/$NumRegIdTrib,$UsoCfdi){
+     $this->RFC              = $RFC;
+     $this->Nombre           = $Nombre;
+     //$this->ResidenciaFiscal = $ResidenciaFiscal;
+     $this->NumRegIdTrib     = $NumRegIdTrib;
+     $this->UsoCfdi          = $UsoCfdi;
+   }
 
 }
 
@@ -192,7 +205,7 @@ class CFDISRelacionados{
 
    function __construct($TipoRelacion,$UUID){
      $this->TipoRelacion = $TipoRelacion;
-     $this->Relacionados  = new CFDISRelacionado($UUID);
+     $this->Relacionados  = array(new CFDISRelacionado($UUID[0]),(new CFDISRelacionado($UUID[1])));
    }
 
 }
@@ -225,19 +238,19 @@ class DatosCFDITimbradoPlus{
       public $LugarDeExpedicion;  //string
 
       function __construct(){
-        // $this->Serie             = 'A';
-        // $this->Folio             = '167ABC';
-        // $this->Fecha             = '2017-06-14T09:09:23';
-        // $this->FormadePago       = '01';
-        // $this->CondicionesDePago = 'CONDICIONES';
-        // $this->Subtotal          = '2269400';
-        // $this->Descuento         = '0.00';
-        // $this->Moneda            = 'MXN';
-        // $this->TipoCambio        = '1';
-        // $this->Total             = '1436012.00';
-        // $this->TipodeComprobante = 'I';
-        // $this->MetodoPago        = 'PUE';
-        // $this->LugarDeExpedicion = '45079';
+        $this->Serie             = 'A';
+        $this->Folio             = '12';
+        $this->Fecha             = '2017-06-03';
+        $this->FormadePago       = '01';
+        $this->CondicionesDePago = 'Condiciones de pago';
+        $this->Subtotal          = '20000.00';
+        $this->Descuento         = '0.00';
+        $this->Moneda            = 'MXN';
+        $this->TipoCambio        = '0.00';
+        $this->Total             = '20000.00';
+        $this->TipodeComprobante = 'I';
+        $this->MetodoPago        = 'PUE';
+        $this->LugarDeExpedicion = '52340';
       }
 
 }
@@ -252,11 +265,11 @@ class CFDIRequest{
    public $Addenda;
 
    function __construct(){
-     $this->Usuario          = 'ws@carsystem.mx';
-     $this->Contrasena       = 'Ws5n6*cwq*1';
-     $this->DatosCFDI        = '';//new DatosCFDI('Datos Adicionales','Mensaje Pdf','Email Mensaje');
-     $this->CFDIRelacion     = new CFDISRelacionados('1','A39DA66B-52CA-49E3-879B-5C05185B0EF7');
-     $this->ReceptorCFDI     = new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2');
+     $this->Usuario          = 'digifact781@mail.com';
+     $this->Contrasena       = '12345';
+     $this->DatosCFDI        = new DatosCFDITimbradoPlus(); //new DatosCFDI('DatosAdicionales','MensajePDF','EmailMensaje');
+     $this->CFDIRelacion     = new CFDISRelacionados('1',array('D8F65023-B760-4128-BE8A-2EF17DCB49C4','F8F65023-B760-4128-BE8A-2EF17DCB49C4'));
+     $this->ReceptorCFDI     = new ReceptorCFDITimbradoPlus('LEGT7610034S2','RECEPTOR Prueba 4','NumRegIdTrib','G01'); //new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2');
      $this->ConceptosCFD     = new ConceptosCFDI();
      $this->Addenda          = '$Addenda';
   }
