@@ -6,12 +6,10 @@ include ('./generar-parametros.php');
 
 // https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL     URL SERVICIO PRODUCCION
 // https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL 	URL SERVICIO DEMO
-$servicio="https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
-
-//$CFDIRequest = new CFDIRequest;
+$servicio="https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
 
   try {
-    //$client = new SoapClient($servicio);
+    $client = new SoapClient($servicio);
     // echo'<hr>';
     // echo '<p style="text-align:center;">FUNCTIONS</p>';
     // echo'<hr>';
@@ -27,12 +25,12 @@ $servicio="https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
     // var_dump ($type);
 
     $parameters = new GeneraCFDIV33();
-    echo '<pre>';
-    var_dump($parameters);
+    // echo '<pre>';
+    // var_dump($parameters);
 
-    // $xmlstr = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
-    //
-    // echo "<pre>";var_dump($xmlstr);
+     $xmlstr = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
+
+     echo "<pre>";var_dump($xmlstr);
   }
   catch (Exception $e) {
     throw new Exception($e, 1);

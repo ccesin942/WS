@@ -267,11 +267,11 @@ class CFDIRequest{
    function __construct(){
      $this->Usuario          = 'digifact781@mail.com';
      $this->Contrasena       = '12345';
-     $this->DatosCFDI        = new DatosCFDITimbradoPlus(); //new DatosCFDI('DatosAdicionales','MensajePDF','EmailMensaje');
+     $this->DatosCFDI        = new DatosCFDITimbradoPlus();//new DatosCFDI('DatosAdicionales','MensajePDF','EmailMensaje');
      $this->CFDIRelacion     = new CFDISRelacionados('1',array('D8F65023-B760-4128-BE8A-2EF17DCB49C4','F8F65023-B760-4128-BE8A-2EF17DCB49C4'));
-     $this->ReceptorCFDI     = new ReceptorCFDITimbradoPlus('LEGT7610034S2','RECEPTOR Prueba 4','NumRegIdTrib','G01'); //new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2');
+     $this->ReceptorCFDI     = new ReceptorCFDI('1','Mail@mail.com','Contacto1','Contacto2','Telefono1','Telefono2'); // new ReceptorCFDITimbradoPlus('LEGT7610034S2','RECEPTOR Prueba 4','NumRegIdTrib','G01');
      $this->ConceptosCFD     = new ConceptosCFDI();
-     $this->Addenda          = '$Addenda';
+     $this->Addenda          = '';
   }
 }
 
