@@ -10,6 +10,7 @@ $servicio="https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
 
   try {
     $client = new SoapClient($servicio);
+    
     // echo'<hr>';
     // echo '<p style="text-align:center;">FUNCTIONS</p>';
     // echo'<hr>';
@@ -28,9 +29,10 @@ $servicio="https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
     // echo '<pre>';
     // var_dump($parameters);
 
-     $xmlstr = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
+     $GeneraCFDIV33Response = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
 
-     echo "<pre>";var_dump($xmlstr);
+     echo "<pre>";var_dump($GeneraCFDIV33Response);
+     echo ($GeneraCFDIV33Response->GeneraCFDIV33Result->ErrorCFDI);
   }
   catch (Exception $e) {
     throw new Exception($e, 1);
