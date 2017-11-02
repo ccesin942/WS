@@ -6,7 +6,7 @@ include ('./generar-parametros.php');
 
 // https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL     URL SERVICIO PRODUCCION
 // https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL 	URL SERVICIO DEMO
-$servicio="https://demo.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
+$servicio="https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
 
   try {
     $client = new SoapClient($servicio);
