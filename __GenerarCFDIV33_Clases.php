@@ -76,11 +76,11 @@ class ConceptoCFDI{
   public $Predial;
   public $Parte;
   function __construct($ClaveProdServ,$NoIdentificacion,$Cantidad,$claveUnidad,$Unidad,$Descripcion,$ValorUnitario,$Importe,$Descuento,
-                       $Data_IT,                                                         /*Translado*/
-                       //$Data_IR,                                                         /*Retenciones*/
-                       $NumeroPedimento_ConceptoCFDI,                                    /*InformacionAduana_ConceptoCFDI*/
-                       $Numero,                                                          /*Predial*/
-                       $Data_P){                                                           /* ARRAY PARTE*/
+                       $Base_T,$Impuesto_T,$TipoFactor_T,$TasaOCuota_T,$Importe_T,                              /*Translado*/
+                       //$Base_R,$Impuesto_R,$TipoFactor_R,$TasaOCuota_R,$Importe_R,                              /*Retenciones*/
+                       $NumeroPedimento_ConceptoCFDI,                                                           /*InformacionAduana_ConceptoCFDI*/
+                       $Numero,                                                                                 /*Predial*/
+                       $Data){                                                                                  /* ARRAY PARTE*/
     $this->ClaveProdServ     = $ClaveProdServ;
     $this->NoIdentificacion  = $NoIdentificacion;
     $this->Cantidad          = $Cantidad;
@@ -90,27 +90,23 @@ class ConceptoCFDI{
     $this->ValorUnitario     = $ValorUnitario;
     $this->Importe           = $Importe;
     $this->Descuento         = $Descuento;
-    foreach ($Data_IT as $value) {
-      if(count($value) > 0){$this->Traslados[] = new ImpuestoTrasladado($value[0],$value[1],$value[2],$value[3],$value[4]);}
-    }
-    // foreach ($Data_IR as $value) {
-    //   if(count($value) > 0){$this->Retenciones[] = new ImpuestoRetenido($value[0],$value[1],$value[2],$value[3],$value[4]);}
-    // }
+    $this->Traslados         = new ImpuestoTrasladado($Base_T,$Impuesto_T,$TipoFactor_T,$TasaOCuota_T,$Importe_T);
+    $this->Retenciones       = '';//new ImpuestoRetenido($Base_R,$Impuesto_R,$TipoFactor_R,$TasaOCuota_R,$Importe_R);
     $this->InformacionAduana = new InformacionAduanera($NumeroPedimento_ConceptoCFDI);
     $this->Predial           = new CuentaPredial($Numero);
-    foreach ($Data_P as $value) {
-      if(count($value) > 0){$this->Parte[] = new Parte($value[0],$value[1],$value[2],$value[3],$value[4],$value[5],$value[6],$value[7]);}
+    foreach ($Data as $value) {
+        $this->Parte[] = new Parte($value[0],$value[1],$value[2],$value[3],$value[4],$value[5],$value[6],$value[7]);
     }
   }
 }
 class ConceptosCFDI{
    public $Conceptos;
    function __construct(){
-     $this->Conceptos =  array(new ConceptoCFDI('52161500','99',1.00,'H87','N/A','Descrpicion de Prueba 1',1.00,1.00,0.00,
-                                          array(array(1.00,'002','Tasa',0.1600,0.1600)),                   /*Translado*/
-                                          array(array(1.00,'002','Tasa',0.00,0.00)),                                                         /*Retenciones*/
-                                          '',                                                              /*InformacionAduana_ConceptoCFDI*/
-                                          '',                                                              /*Predial*/
+     $this->Conceptos =  array(new ConceptoCFDI('52161500','',1.00,'H87','Pza','Descrpicion de Prueba 1',1.00,1.00,0.00,
+                                          1.00,'001','Tasa',0.1600,1.1600,                                         /*Translado*/
+                                          //0.00,'','' ,0.00,0.00,                                               /*Retenciones*/
+                                          '',                                                                 /*InformacionAduana_ConceptoCFDI*/
+                                          '',                                                                 /*Predial*/
                                           array(//array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 1',1000.00,10000.00, /*Parte*/
                                                 //    'null'/*'15  48  3009  0002777'InformacionAduana_Parte*/),
                                                 //array('10101500','1',10.00,'Pza','Descripcion Parte Prueba 2',1000.00,10000.00, /*Parte*/
@@ -147,15 +143,15 @@ class ReceptorCFDI{
    public $NumRegIdTrib;     //                                         <-/    
    public $UsoCfdi;
    function __construct(/*$NoCliente,$Email,$Contacto1,$Contacto2,$Telefono1,$Telefono2,$RFC,$Nombre,$ResidenciaFiscal,$NumRegIdTrib,$UsoCfdi*/){
-     $this->NoCliente         = 'Blac Admin';
-     $this->Email             = 'isaacpch@hotmail.com';
-     $this->Contacto1         = 'Blac admin';
-     $this->Contacto2         = '';
-     $this->Telefono1         = '';
-     $this->Telefono2         = '';
+     $this->NoCliente         = '0423';
+     $this->Email             = 'Email@dominio.com';
+     $this->Contacto1         = 'Contacto1';
+     $this->Contacto2         = 'Contacto2';
+     $this->Telefono1         = '$Telefono1';
+     $this->Telefono2         = '$Telefono2';
      $this->RFC               = 'BSO100212641';
      $this->RazonSocial       = 'BLAC SOLUTIONS, SA DE CV';
-     $this->ResidenciaFiscal  = '';
+     $this->ResidenciaFiscal  = 'MEX';
      $this->NumRegIdTrib      = '';
      $this->UsoCfdi           = 'G03';     
    } 
@@ -239,7 +235,7 @@ class DatosCFDI{
       $this->Descuento         = 0.00;
       $this->Moneda            = 'MXN';
       $this->TipoCambio        = 0.00;
-      $this->Total             = 1.16;
+      $this->Total             = 1.00;
       $this->TipodeComprobante = 'FA';
       $this->MetodoPago        = 'PUE';
       $this->LugarDeExpedicion = '11560';

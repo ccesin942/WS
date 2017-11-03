@@ -26,8 +26,8 @@ $servicio="https://cfd.sicofi.com.mx/SicofiWS33/Digifact.asmx?WSDL";
     // var_dump ($type);
 
     $parameters = new GeneraCFDIV33();
-    // echo '<pre>';
-    // var_dump($parameters);
+     //echo '<pre>';
+     //var_dump($parameters);
 
      $GeneraCFDIV33Response = $client->GeneraCFDIV33($parameters);// funcioon del WS del SRI
 
